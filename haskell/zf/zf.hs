@@ -25,3 +25,6 @@ nPerft 0 = [0]
 nPerft n = [x | x <- [1..n], sum (fatores x) == x ] 
 
 -- ▪Concatena - Semelhante a função concat (concatena uma lista de listas em uma única)
+concatena :: [[Int]] -> [Int]
+concatena []     = []
+concatena lista = [x | y <- lista , x <- y]
