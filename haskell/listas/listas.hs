@@ -86,7 +86,6 @@ moverDireita::[Int]->Int->[Int]
 moverDireita [] _ = []
 moverDireita lista p = drop ((length lista) - p) lista ++ take ((length lista) - p) lista
 
-
 -- 10 . Implemente uma função que recebe duas listas sem elementos
 -- repetidos e retorna uma lista com elementos comuns entre elas.
 -- Exemplo:
@@ -110,6 +109,56 @@ split n lista = (l1, l2)
         l1 = [x | x <- lista , x > n]
         l2 = [x | x <- lista , x < n]
 
+-- 12. Escreva uma função que dados dois índices, m e n, extraia da
+-- lista os elementos compreendidos entre entre esses valores, onde
+-- ambos os limites estão incluídos. Comece a contar os elementos
+-- do 1.
+-- Exemplo:
+-- ['a','b','c','d','e','f','g','h','i','k'] 3 7 -> "cdefg"
+
+extrai::Int->Int->[Char]->[Char]
+extrai _ _ [] = []
+extrai n m lista = drop (n-1) (take (m) lista)
+ 
+-- 13. Escreva uma função que empacote duplicatas consecutivas de
+-- elementos de lista em sublistas. Se uma lista contém elementos
+-- repetidos, eles devem ser colocados em sublistas separadas.
+-- Exemplo:
+-- ['a', 'a', 'a', 'a', 'b', 'c', 'c', 'a', 'a', 'd', 'e', 'e', 'e', 'e'] -> ["aaaa","b","cc","aa","d","eeee"]
+
+
+-- 14. Considerando:
+-- Reg = [(15,”Ana”),(22,”Pedro”),(2,”Maria”),(12,”João”),(14,”Pablo”),(23,”Poliana”)]
+-- Implemente uma função para ordenar o registro considerando as
+-- idades.
+
+-- 15. Implemente uma função que recebe duas listas e retorna outra
+-- lista com os elementos intercalados.
+-- Exemplo:
+-- intercala [1,2,3] [4,6] -> [1,4,2,6,3]
+-- intercala [] [4,6] -> [4,6]
+
+-- 16. Implemente uma função que recebe uma lista de números e
+-- transforma as repetições em sublistas de dois elementos. Sendo o
+-- primeiro elemento o número de repetições encontradas e o
+-- segundo é o número que se repete.
+-- Exemplo:
+-- contarRepetidos [2,2,2,3,4,4,2,9] -> [[3,2],[1,3],[2,4],[1,9]]
+
+-- 17. Defina, em Haskell, uma função f que, dadas uma lista i de inteiros
+-- e uma lista l qualquer, retorne uma nova lista constituı́da pela
+-- lista l seguida de seus elementos que têm posição indicada na
+-- lista i, conforme o exemplo a seguir:
+-- f [2,1,4] [’a’, ’b’, ’c’, ’d’] -> [’a’, ’b’, ’c’, ’d’, ’b’, ’a’, ’d’]
+
+aux2::[Int]->[Char]->[Char]
+aux2 [] _ = []
+aux2 _ [] = []
+aux2 (x:xs) listaC = (listaC!!x):aux2 xs listaC
+
+f::[Int]->[Char]->[Char]
+f listaI listaC = listaC ++ aux2 listaI listaC
+
 -- 20. Considere que o preço de uma passagem de avião em um trecho
 -- pode variar dependendo da idade do passageiro. 
 -- Pessoas com 60 anos ou mais pagam apenas 60% do preço total. 
@@ -127,7 +176,7 @@ valorPasagem (x:xs)
     | snd x >= 60 = (0.6 * fst x) + valorPasagem xs
     | otherwise = fst x + valorPasagem xs
 
--- 4.Um trio (x, y, z) de inteiros positivos diz-se pitagórico se
+--24.Um trio (x, y, z) de inteiros positivos diz-se pitagórico se
 -- . Defina a função 𝑥² + 𝑦² = 𝑧²
 -- pitagóricos ∶∶ Integer → [(Integer, Integer, Integer)]
 -- que calcule todos os trios pitagóricos cujas componentes não
@@ -137,17 +186,31 @@ valorPasagem (x:xs)
 pitagoras::Int->[( Int, Int, Int)]
 pitagoras n = [(x,y,z) | x <- [1..n], y <- [1..n], z <- [1..n], x^2 + y^2 == z^2]
 
+-- 25.A cifra de César é um dos métodos mais simples para codificar
+-- um texto: cada letra é substituída pela que dista k posições à
+-- frente no alfabeto; se ultrapassar a letra Z, volta à letra A. Por
+-- exemplo, para k = 3, a substituição efetuada é
+-- A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
+-- D E F G H I J K L M N O P Q R S T U V W X Y Z A B C
+-- Por exemplo, “ATAQUE DE MADRUGADA” é transformado em
+-- “DWDTXH GH PDGUXJDGD”.
+-- Escreva uma função
+-- cifrar ∶∶ Int → String → String
+-- para cifrar uma cadeia de caracteres usando um deslocamento
+-- dado. Note que cifrar (−n) é a função inversa de cifrar n, pelo que
+-- a mesma função pode servir para codificar e decodificar.
 
--- 17. Defina, em Haskell, uma função f que, dadas uma lista i de inteiros
--- e uma lista l qualquer, retorne uma nova lista constituı́da pela
--- lista l seguida de seus elementos que têm posição indicada na
--- lista i, conforme o exemplo a seguir:
--- f [2,1,4] [’a’, ’b’, ’c’, ’d’] -> [’a’, ’b’, ’c’, ’d’, ’b’, ’a’, ’d’]
+p::Char->[Char]->Int
+p l (x:xs)
+    | l /= x = 1 + p l xs
+    | otherwise = 1
 
-aux2::[Int]->[Char]->[Char]
-aux2 [] _ = []
-aux2 _ [] = []
-aux2 (x:xs) listaC = (listaC!!x):f xs listaC
-
-f::[Int]->[Char]->[Char]
-f listaI listaC = listaC : aux2 listaI listaC
+cifra::Int->String->String
+cifra _ [] = []
+cifra k (x:xs)
+    | x == ' ' = ' ':cifra k xs
+    |otherwise = alfa!!k2:cifra k xs 
+    where
+        alfa = ['A'..'Z']
+        posicaoL = p x alfa
+        k2 = mod (k + posicaoL - 1) 26
