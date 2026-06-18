@@ -12,8 +12,8 @@ quickSort::[Int]->[Int]
 quickSort [] = []
 quickSort (a:xs) = quickSort x1 ++ [a] ++ quickSort x2
     where
-        x1 = quickSort [y | y <- xs, y <= a]
-        x2 = quickSort [y | y <- xs, y > a]
+        x1 = [y | y <- xs, y <= a]
+        x2 = [y | y <- xs, y > a]
 
 
 -- ▪Fatores - Lista os divisores de um número

@@ -75,6 +75,7 @@ palavra (x:xs)
     | x /= ',' && x /= '.' && x /= ';' =  x:palavra xs
     | otherwise = x:palavra xs
 
+
 -- 9. Implemente uma função que move todos os elementos de uma
 -- lista para a direita.
 -- Exemplo:
@@ -108,6 +109,7 @@ split n lista = (l1, l2)
     where 
         l1 = [x | x <- lista , x > n]
         l2 = [x | x <- lista , x < n]
+        
 
 -- 12. Escreva uma função que dados dois índices, m e n, extraia da
 -- lista os elementos compreendidos entre entre esses valores, onde
@@ -126,11 +128,26 @@ extrai n m lista = drop (n-1) (take (m) lista)
 -- Exemplo:
 -- ['a', 'a', 'a', 'a', 'b', 'c', 'c', 'a', 'a', 'd', 'e', 'e', 'e', 'e'] -> ["aaaa","b","cc","aa","d","eeee"]
 
+empacota::[String]->[String]
+empacota [] = []
+empacota (x:y:xs)
+    | x == y = [x]++l ++ empacota xs
+    | otherwise = [x]:empacota xs
+    where 
+        l = [" "]
 
 -- 14. Considerando:
 -- Reg = [(15,”Ana”),(22,”Pedro”),(2,”Maria”),(12,”João”),(14,”Pablo”),(23,”Poliana”)]
 -- Implemente uma função para ordenar o registro considerando as
 -- idades.
+
+ordenaSort::[(Int, String)]->[String]
+ordenaSort [] = []
+ordenaSort lista = (ordenaSort p1) ++ [snd p0] ++ (ordenaSort p2)
+    where 
+        p0 = head lista
+        p1 = [ x | x <- tail lista, (fst x ) < (fst p0)]
+        p2 = [ x | x <- tail lista, (fst x ) >= (fst p0)]
 
 -- 15. Implemente uma função que recebe duas listas e retorna outra
 -- lista com os elementos intercalados.
