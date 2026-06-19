@@ -21,6 +21,7 @@ unZipi l = ([fst x| x <- l],[snd x| x <- l])
 -- ▪Defina uma função init::[t]->[t] que retorna todos os elementos de uma lista com exceção do último
 
 initi::[t]->[t]
+initi [] = []
 
 
 -- ▪Defina as funções tome e tire do tipo Int->[t]->[t] onde tome n l retorna os n primeiros elementos da lista l e  tire n l retira os n primeiros elementos da lista l
