@@ -35,12 +35,12 @@ removeN lista n = take (n-1) lista ++ drop n lista
 -- Para verificar se uma frase é palíndromo basta verificar se ela é igual à sua reversa (implemente a função reverse)
 
 aux :: [a] -> [a]
-aux []     = []                    
-aux (x:xs) = aux xs ++ [x]  
+aux []     = []
+aux (x:xs) = aux xs ++ [x]
 
 isPalindromo::[Char]->Bool
 isPalindromo [] = False
-isPalindromo lista 
+isPalindromo lista
     | lista == aux lista = True
     | otherwise = False
 
@@ -61,7 +61,7 @@ noRepite (x:y:resto)
 
 duplica::[Int]->[Int]
 duplica [] = []
-duplica (x:xs) = x:x:duplica xs 
+duplica (x:xs) = x:x:duplica xs
 
 -- 8. Escreva uma função que recebe uma String e retorna a primeira
 -- palavra dessa String sem contar pontuação.
@@ -70,7 +70,7 @@ duplica (x:xs) = x:x:duplica xs
 
 palavra::[Char]->[Char]
 palavra [] = []
-palavra (x:xs) 
+palavra (x:xs)
     | x == ' ' = []
     | x /= ',' && x /= '.' && x /= ';' =  x:palavra xs
     | otherwise = x:palavra xs
@@ -85,7 +85,7 @@ palavra (x:xs)
 
 moverDireita::[Int]->Int->[Int]
 moverDireita [] _ = []
-moverDireita lista p = drop ((length lista) - p) lista ++ take ((length lista) - p) lista
+moverDireita lista p = drop (length lista - p) lista ++ take (length lista - p) lista
 
 -- 10 . Implemente uma função que recebe duas listas sem elementos
 -- repetidos e retorna uma lista com elementos comuns entre elas.
@@ -106,10 +106,10 @@ intercede l1 l2 = [x | x <- l1 , y <- l2 , x == y]
 split::Int->[Int]->([Int],[Int])
 split _ [] = ([], [])
 split n lista = (l1, l2)
-    where 
+    where
         l1 = [x | x <- lista , x > n]
         l2 = [x | x <- lista , x < n]
-        
+
 
 -- 12. Escreva uma função que dados dois índices, m e n, extraia da
 -- lista os elementos compreendidos entre entre esses valores, onde
@@ -120,8 +120,8 @@ split n lista = (l1, l2)
 
 extrai::Int->Int->[Char]->[Char]
 extrai _ _ [] = []
-extrai n m lista = drop (n-1) (take (m) lista)
- 
+extrai n m lista = drop (n-1) (take m lista)
+
 -- 13. Escreva uma função que empacote duplicatas consecutivas de
 -- elementos de lista em sublistas. Se uma lista contém elementos
 -- repetidos, eles devem ser colocados em sublistas separadas.
@@ -132,8 +132,8 @@ empacota::[String]->[String]
 empacota [] = []
 empacota (x:y:xs)
     | x == y = [x]++l ++ empacota xs
-    | otherwise = [x]:empacota xs
-    where 
+    | otherwise = x:empacota xs
+    where
         l = [" "]
 
 -- 14. Considerando:
@@ -143,11 +143,11 @@ empacota (x:y:xs)
 
 ordenaSort::[(Int, String)]->[String]
 ordenaSort [] = []
-ordenaSort lista = (ordenaSort p1) ++ [snd p0] ++ (ordenaSort p2)
-    where 
+ordenaSort lista = ordenaSort p1 ++ [snd p0] ++ ordenaSort p2
+    where
         p0 = head lista
-        p1 = [ x | x <- tail lista, (fst x ) < (fst p0)]
-        p2 = [ x | x <- tail lista, (fst x ) >= (fst p0)]
+        p1 = [ x | x <- tail lista, fst x < fst p0]
+        p2 = [ x | x <- tail lista, fst x >= fst p0]
 
 -- 15. Implemente uma função que recebe duas listas e retorna outra
 -- lista com os elementos intercalados.
@@ -207,8 +207,10 @@ pitagoras n = [(x,y,z) | x <- [1..n], y <- [1..n], z <- [1..n], x^2 + y^2 == z^2
 -- um texto: cada letra é substituída pela que dista k posições à
 -- frente no alfabeto; se ultrapassar a letra Z, volta à letra A. Por
 -- exemplo, para k = 3, a substituição efetuada é
+
 -- A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
 -- D E F G H I J K L M N O P Q R S T U V W X Y Z A B C
+
 -- Por exemplo, “ATAQUE DE MADRUGADA” é transformado em
 -- “DWDTXH GH PDGUXJDGD”.
 -- Escreva uma função
@@ -226,7 +228,7 @@ cifra::Int->String->String
 cifra _ [] = []
 cifra k (x:xs)
     | x == ' ' = ' ':cifra k xs
-    |otherwise = alfa!!k2:cifra k xs 
+    |otherwise = alfa!!k2:cifra k xs
     where
         alfa = ['A'..'Z']
         posicaoL = p x alfa
