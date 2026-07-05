@@ -31,3 +31,4 @@ concatena :: [[Int]] -> [Int]
 concatena []     = []
 concatena lista = [x | y <- lista , x <- y]
 
+    
