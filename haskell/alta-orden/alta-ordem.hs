@@ -55,3 +55,18 @@ isOrdemCrescente::(Int->Int)->Int->Bool
 isOrdemCrescente f n = isCrescente result
     where   
         result = map f [0..n]
+
+-- aplicacaoExclusiva::(a->Bool)->(a->a->c)->[a]->[a]->[u]
+
+contaVizinhosIguais::(Eq t) => [t]->Int
+contaVizinhosIguais [] = 0
+contaVizinhosIguais [a] = 0
+contaVizinhosIguais (a:xs)
+    | a == head xs = 1 + contaVizinhosIguais xs
+    | otherwise = contaVizinhosIguais xs 
+
+contador::(a->Bool)->[a]->Int
+contador f l = length (filter f l)
+
+filtraPar::(t->Bool)->(u->Bool)->[t]->[u]->[(t,u)]
+filtraPar f g l1 l2 = [(x,y) | x <- filter f l1 , y <- filter g l2]
