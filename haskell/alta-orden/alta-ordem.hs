@@ -77,3 +77,5 @@ filtraPar f g l1 l2 = [(x,y) | x <- filter f l1 , y <- filter g l2]
 
 selecionaExecuta::(t->Bool)->(t->u)->[t]->[u]
 selecionaExecuta f g l = map g (filter f l)
+
+

@@ -1,14 +1,12 @@
 -- q1
 
 aux::(Char,Int)->String
-aux (a,b) 
+aux (a,b)
     | b > 0 =  a :aux (a, b-1)
     | otherwise = " "
 
 descompata::[(Char, Int)]->String
-descompata [] = " "
-descompata (x:xs) = aux x ++ descompata xs
-
+descompata = foldr ((++) . aux) " "
 
 -- q2
 
@@ -22,6 +20,6 @@ isAmigavel (a,b)
 
 contaAmigavel::[(Int,Int)]->Int
 contaAmigavel [] = 0
-contaAmigavel (x:xs) 
+contaAmigavel (x:xs)
     | isAmigavel x = 1 + contaAmigavel xs
     | otherwise = contaAmigavel xs
